@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef unsigned long long ll;
+
+#define endl '\n'
+
+ll good(ll k, ll n)
+{
+	return (k * (k + 1) / 2);
+}
+
+int main (int argc, char *argv[]) {
+
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	ll n; cin >> n;
+	ll end = 1e9;
+
+	ll start = 1;
+	ll res = 0;
+	while(start <= end)
+	{
+		ll mid = start + (end - start) / 2;
+		ll g = good(mid, n);
+		if (g == n)
+		{
+			res = mid;
+			break;
+		}
+		else if(g < n)
+		{
+			start = mid + 1;
+			res = mid;
+		}
+		else
+			end = mid - 1;
+	}
+
+	cout << res << endl;
+
+	return 0;
+}

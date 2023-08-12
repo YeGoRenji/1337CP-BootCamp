@@ -4,16 +4,19 @@ using namespace std;
 
 typedef long long ll;
 
-int main (int argc, char *argv[]) {
+#define endl '\n';
+
+int main () {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
+	ll n; cin >> n;
 
-	// n -> n (n+1)	/ 2
-	// y = x * (x+1) /2
-	// y = x^2 /2 + x /2
-	// 2y = x^2 + x
+	double sqrtDelta = sqrt((double)1/4 + 2*n);
 
-	// 1 3 6 10 15 21 28... 10^18 time ?
+	double x1 = (double)-1/2 + sqrtDelta;
+	double x2 = (double)-1/2 - sqrtDelta;
 
-	return 0;
+	cout << (ll)max(x1, x2) << endl
+
+	return (0);
 }
