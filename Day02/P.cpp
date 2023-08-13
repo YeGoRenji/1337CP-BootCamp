@@ -31,6 +31,7 @@ int main () {
 	for (int i = 0; i < n; i++)
 	{
 		int a, b, c; cin >> a >> b >> c;
+		// u need to fermat's little theorem
 		ans.push_back(power(a, power(b, c)));
 	}
 

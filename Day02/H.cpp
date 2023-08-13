@@ -4,7 +4,7 @@ using namespace std;
 
 typedef long long ll;
 
-#define endl '\n';
+#define endl '\n'
 
 ll MOD = 998244353;
 
@@ -23,11 +23,11 @@ int main () {
 	ll abc = (((a * b) % MOD) * (c % MOD)) % MOD;
 	ll def = (((d * e) % MOD) * (f % MOD)) % MOD;
 
-	ll ans = abc - def;
+	ll ans = (abc - def) % MOD;
 
-	ans %= MOD;
-
-	cout << ans << endl;
-
+	if (ans < 0)
+		cout << (MOD + ans) << endl;
+	else
+		cout << ans << endl;
 	return (0);
 }
