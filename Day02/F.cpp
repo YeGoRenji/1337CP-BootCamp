@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -7,37 +6,43 @@ typedef long long ll;
 
 #define endl '\n'
 
-bool good(vector<int> &a, int n, int t)
+bool good(vector<ll> &a, ll nprods, ll time)
 {
-
-	return (false)
+	ll possibleMakes = 0;
+	for (auto ti : a)
+		possibleMakes += time / ti;
+	return (possibleMakes >= nprods);
 }
 
 int main () {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 	
-	int n, t; cin >> n >> t;
-	vector<int> v(n);
+	ll n, t; cin >> n >> t;
+	vector<ll> v(n);
 
-
-	ll start = 0;
-	ll end = 0;
 	for (int i = 0; i < n; i++)
 		cin >> v[i];
+
+	ll start = 1;
+	ll end = 1;
+
+	while (!good(v, t, end))
+		end *= 2;
 
 	ll res = 1;
 	while(start <= end)
 	{
 		ll mid = start + (end - start) / 2;
 
-		// 000000111111111
-		if(good(mid, n))
+		if(good(v, t, mid))
 		{
-			end = mid - 1;
 			res = mid;
+			end = mid - 1;
 		}
 		else
 			start = mid + 1;
 	}
+
+	cout << res << endl;
 }

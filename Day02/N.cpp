@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+
 // Notes :
 //
 //
@@ -10,3 +12,42 @@
 //
 // the conditions are then  x = sqrt(t) has to be Perfect square and Prime !
 //
+
+using namespace std;
+
+typedef long long ll;
+
+#define endl '\n'
+
+vector<bool> is_prime(1e6 + 1, true);
+
+void sieve()
+{
+	for (int i = 2; i <= 1000; ++i)
+		for (int j = i*i; j <= 1e6; j += i)
+			is_prime[j] = false;
+}
+
+int main () {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	int n; cin >> n;
+	sieve();
+	vector<ll> v(n);
+
+	for(int i = 0; i < n; ++i)
+		cin >> v[i];
+
+	for (auto ai : v)
+  	{
+		ll x = sqrt(ai);
+		bool is_perfect_sq = (x*x == ai);
+		bool is_prim = is_prime[x];
+
+		if (is_perfect_sq && is_prim)
+			cout << "YES" << endl;
+		else
+			cout << "NO" << endl;
+	}
+}
