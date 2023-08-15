@@ -23,6 +23,7 @@ vector<bool> is_prime(1e6 + 1, true);
 
 void sieve()
 {
+	is_prime[1] = false;
 	for (int i = 2; i <= 1000; ++i)
 		for (int j = i*i; j <= 1e6; j += i)
 			is_prime[j] = false;
