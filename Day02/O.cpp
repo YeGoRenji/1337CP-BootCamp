@@ -19,6 +19,21 @@ typedef long long ll;
 
 ll MOD = 1e9 + 7;
 
+ll pow(ll a, ll b)
+{
+	if (b == 0) return (1);
+
+	ll y = pow(a, b/2);
+
+	ll result;
+	if (b % 2 == 0)
+		result = ((y % MOD) * (y % MOD)) % MOD;
+	else
+		return ((y * y) % MOD * (a % MOD)) % MOD;
+
+	return (result);
+}
+
 int main () {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
@@ -30,20 +45,20 @@ int main () {
 	for(int i = 1; i <= N; ++i)
 	{
 		cin >> v[i-1];
-		prefix[i] = v[i-1] * prefix[i-1];
+		prefix[i] = (v[i-1] * prefix[i-1]) % MOD;
 	}
 
-	for (auto vi: v)
-	{
-		cout << vi << ' ';
-	}
-	cout << endl;
+	// for (auto vi: v)
+	// {
+	// 	cout << vi << ' ';
+	// }
+	// cout << endl;
 
-	for (int i = 1; i <= N; ++i)
-	{
-		cout << prefix[i] << ' ';
-	}
-	cout << endl;
+	// for (int i = 1; i <= N; ++i)
+	// {
+	// 	cout << prefix[i] << ' ';
+	// }
+	// cout << endl;
 
 	for (int i = 0; i < Q; i++)
 	{
@@ -51,6 +66,8 @@ int main () {
 		ll right = prefix[R];
 		ll left  = pow(prefix[L - 1], MOD - 2);
 		ll res = (left * right) % MOD;
-		cout << left << " * " << right << " : " << res << endl;
+		if (res < 0)
+			res += MOD;
+		cout << res << endl;
 	}
 }
