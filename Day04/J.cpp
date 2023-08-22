@@ -12,23 +12,34 @@ typedef enum {
 	VISITED
 } State;
 
-bool	dfs(int s, vector<State> &vis, vector<vector<int> > &neighbrs)
+bool	dfs(int s, vector<State> &vis, vector<vector<int> > &neighbrs, int depth)
 {
 	vis[s] = CURRVISITED;
-
-	bool ret = false;
+	// cout << string(4*depth, ' ') << "-- visiting " << s+1 << endl;
 	for (auto nb: neighbrs[s])
 	{
+		// cout << string(4*depth, ' ') << "-> Neighbor " << nb+1 << " is ";
 		if (vis[nb] == CURRVISITED)
+		{
+			// cout << "CURRVISITED" << endl;
+			//
 			return (true);
+		}
 		if (vis[nb] == UNVISITED)
-			if ((ret = dfs(nb, vis, neighbrs)))
+		{
+			// cout << "UNVISITED" << endl;
+			if (dfs(nb, vis, neighbrs, depth+1))
 				return (true);
+		}
+		// else
+			// cout << "VISITED" << endl;
+		// cout << string(4*depth, ' ') << "-> END " << nb+1 << endl;
 	}
+	// cout << string(4*depth, ' ') << string(13, '-') << endl;
 
 	vis[s] = VISITED;
 
-	return (ret);
+	return (false);
 }
 
 int main () {
@@ -49,12 +60,29 @@ int main () {
 		}
 	}
 
+	int max_ind = 0;
+	int max_val = -1;
+	for (int i = 0; i < n; i++)
+	{
+		int sz = neighbrs[i].size();
+		if (sz > max_val)
+		{
+			max_val = sz;
+			max_ind = i;
+		}
+	}
+
+	// for (int i = 0; i < n; i++)
+	// {
+	// 	cout << "neighbrs of " << i+1 << endl;
+	// 	for (auto nb: neighbrs[i])
+	// 		cout << nb + 1 << ' ';
+	// 	cout << endl;
+	// }
+
 	vector<State> vis(n, UNVISITED);
 
-	bool is_cycle = dfs(0, vis, neighbrs);
+	bool is_cycle = dfs(max_ind, vis, neighbrs, 0);
 
-	if (is_cycle)
-		cout << "1\n";
-	else
-		cout << "0\n";
+	cout << is_cycle << endl;
 }
